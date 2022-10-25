@@ -1,10 +1,18 @@
 
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './components/Home/Home';
+import TotalParking from './components/Home/TotalParking';
+import NavBar from './Shared/NavBar';
 
 function App() {
   return (
     <div >
-      <h1> well come to my app</h1>
+      <NavBar></NavBar>
+    <Routes>
+      <Route path='/' element={<Home></Home> }></Route>
+      <Route path='/totalParking' element={<TotalParking></TotalParking> }></Route>
+    </Routes>
      
     </div>
   );
