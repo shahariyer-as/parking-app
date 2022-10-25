@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 const TotalParking = () => {
   const [services, setServices] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState("");
+  const [id,setId]=useState('')
+  console.log(id)
     console.log("checkOutDate", checkOutDate)
   // get data
   useEffect(() => {
@@ -18,7 +20,11 @@ useEffect(()=>{
   const handleSubmit = (e) => {
     e.preventDefault();
     setCheckOutDate(e.target.date.value);
+
   };
+  const getSingeId=id=>{
+   setId(id)
+  }
   return (
     <div>
       <h2>Total Parking</h2>
@@ -56,8 +62,9 @@ useEffect(()=>{
                         className="btn  bg-primary max-w-xs text-white"
                         type="submit"
                         value="Submit"
+                        onClick={() => getSingeId(s._id)}
                       />
-                    </form>{" "}
+                    </form>
                   </td>
                 )}
               </tr>
