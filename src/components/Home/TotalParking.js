@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 
 const TotalParking = () => {
   const [services, setServices] = useState([]);
+  const [checkOutDate, setCheckOutDate] = useState("");
+    console.log("checkOutDate", checkOutDate)
+  // get data
   useEffect(() => {
     fetch("http://localhost:5000/service")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
+// put check out time 
+useEffect(()=>{
+    fetch('')
+},[])
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setCheckOutDate(e.target.date.value);
+  };
   return (
     <div>
       <h2>Total Parking</h2>
@@ -17,18 +29,38 @@ const TotalParking = () => {
               <th>NO.</th>
               <th>Name</th>
               <th>Vehicle No</th>
-              <th>Date</th>
+              <th>Checking Time</th>
+              <th>Checkout Time</th>
             </tr>
           </thead>
           <tbody>
-            {services?.map((s ,index) => (
-            <tr key={s._id}>
-            <th>{index + 1}</th>
-            <td>{s.name}</td>
-            <td>{s.vehicle}</td>
-            <td>{s.date}</td>
-         
-            </tr>
+            {services?.map((s, index) => (
+              <tr key={s._id}>
+                <th>{index + 1}</th>
+                <td>{s.name}</td>
+                <td>{s.vehicle}</td>
+                <td>{s.date}</td>
+                {s.checkout ? (
+                  <td>{s.checkout}</td>
+                ) : (
+                  <td>
+                    <form onSubmit={handleSubmit} action="">
+                      <label htmlFor="date"></label>
+                      <input
+                        id="date"
+                        type="datetime-local"
+                        placeholder="Your Name"
+                        className="input input-bordered  max-w-xs"
+                      />
+                      <input
+                        className="btn  bg-primary max-w-xs text-white"
+                        type="submit"
+                        value="Submit"
+                      />
+                    </form>{" "}
+                  </td>
+                )}
+              </tr>
             ))}
           </tbody>
         </table>
