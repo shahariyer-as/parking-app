@@ -3,14 +3,23 @@ import React, { useEffect, useState } from "react";
 const TotalParking = () => {
   const [services, setServices] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState({});
+  const [available,setAvailable]=useState([])
   // console.log("checkOutDate", checkOutDate)
   const [id,setId]=useState('')
   
+
   useEffect(() => {
     fetch("http://localhost:5000/service")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, [services]);
+
+// available parking 
+
+    useEffect(()=>{
+        fetch('http://localhost:5000/available').then(res=>res.json()).then(data=> setAvailable(data))
+    },[])
+
 // put check out time 
 useEffect(()=>{
   // console.log(checkOutDate,id)
@@ -45,8 +54,8 @@ const handleSubmit = (e) => {
  
   return (
     <div>
-      <h2>Total Parking</h2>
-      <div className="overflow-x-auto">
+    <h2 className='text-red-500 text-3xl text-center'> Available In Parking Vehicles:{available.length - services.length}  </h2>
+      <div className="pt-5 overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
