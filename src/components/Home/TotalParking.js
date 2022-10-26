@@ -3,17 +3,19 @@ import React, { useEffect, useState } from "react";
 const TotalParking = () => {
   const [services, setServices] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState({});
+  // console.log("checkOutDate", checkOutDate)
   const [id,setId]=useState('')
   
   useEffect(() => {
     fetch("http://localhost:5000/service")
       .then((res) => res.json())
       .then((data) => setServices(data));
-  }, []);
+  }, [services]);
 // put check out time 
 useEffect(()=>{
-  console.log(checkOutDate,id)
-  fetch(`http://localhost:5000/parking/${id}`,{
+  // console.log(checkOutDate,id)
+  if(checkOutDate){
+    fetch(`http://localhost:5000/parking/${id}`,{
     method: "PUT",
     headers: {
         "Content-Type": "application/json",
@@ -21,10 +23,14 @@ useEffect(()=>{
       body: JSON.stringify(checkOutDate),
 }).then((data) => {
     if(data.status===200){
-      alert("checkOut successfully")}
+      window.alert("checkOut successfully")
+      setServices()
+    }
+   
   });
+  }
  
-},[id,checkOutDate])
+},[checkOutDate,id,setServices])
 
 
 const handleSubmit = (e) => {

@@ -26,7 +26,7 @@ const ParkingInput = () => {
       body: JSON.stringify(data)
     })
     .then((response) =>response.json().then(data=>{
-      console.log(data)
+      // console.log(data)
       if(data.insertedId){
 window.alert('Data Entry Confirm')
       }
