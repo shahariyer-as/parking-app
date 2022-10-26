@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 const TotalParking = () => {
   const [services, setServices] = useState([]);
-  const [checkOutDate, setCheckOutDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState({});
   const [id,setId]=useState('')
-  console.log(id)
-    console.log("checkOutDate", checkOutDate)
+//   console.log('dhur',id ,checkOutDate)
+    // console.log("checkOutDate", checkOutDate)
   // get data
   useEffect(() => {
     fetch("http://localhost:5000/service")
@@ -13,14 +13,25 @@ const TotalParking = () => {
       .then((data) => setServices(data));
   }, []);
 // put check out time 
-useEffect(()=>{
-    fetch('')
-},[])
+// useEffect(()=>{
+    
+// },[id,checkOutDate])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCheckOutDate(e.target.date.value);
-
+    const date =e.target.date.value
+    setCheckOutDate({date});
+    fetch(`http://localhost:5000/parking/${id}`,{
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(date),
+    }).then((data) => {
+        console.log("put data", data);
+        // alert("user added successfully");
+      });
+    
   };
   const getSingeId=id=>{
    setId(id)

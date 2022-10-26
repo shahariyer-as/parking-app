@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 
 
 const ParkingInput = () => {
-const [inputInfo,setInputInfo]=useState('')
+// const [inputInfo,setInputInfo]=useState('')
   const {
     register,reset,
     formState: { errors },
@@ -12,19 +12,23 @@ const [inputInfo,setInputInfo]=useState('')
 
   } = useForm();
 
-  useEffect(()=>{
+  // useEffect(()=>{
+    
+    
+  // },[inputInfo,reset])
+
+  const onSubmit = (data) => {
     fetch("http://localhost:5000/parking",{
       method:"POST",
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(inputInfo)
+      body: JSON.stringify(data)
     })
     .then((response) =>response.json().then(data=>{
-      if(data.acknowledged){
+      console.log(data)
+      if(data.insertedId){
 window.alert('Data Entry Confirm')
-
-
       }
       else{
         window.alert('some face error')
@@ -34,13 +38,9 @@ window.alert('Data Entry Confirm')
      
     })
     )
-    
-  },[inputInfo])
-
-  const onSubmit = (data) => {
     // console.log(data);
-    setInputInfo(data)
-   
+    // setInputInfo(data)
+    
   };
 
   return (
