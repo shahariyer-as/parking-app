@@ -4,38 +4,39 @@ const TotalParking = () => {
   const [services, setServices] = useState([]);
   const [checkOutDate, setCheckOutDate] = useState({});
   const [id,setId]=useState('')
-//   console.log('dhur',id ,checkOutDate)
-    // console.log("checkOutDate", checkOutDate)
-  // get data
+  
   useEffect(() => {
     fetch("http://localhost:5000/service")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
 // put check out time 
-// useEffect(()=>{
-    
-// },[id,checkOutDate])
+useEffect(()=>{
+  console.log(checkOutDate,id)
+  fetch(`http://localhost:5000/parking/${id}`,{
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(checkOutDate),
+}).then((data) => {
+    if(data.status===200){
+      alert("checkOut successfully")}
+  });
+ 
+},[id,checkOutDate])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const date =e.target.date.value
-    setCheckOutDate({date});
-    fetch(`http://localhost:5000/parking/${id}`,{
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(date),
-    }).then((data) => {
-        console.log("put data", data);
-        // alert("user added successfully");
-      });
-    
-  };
-  const getSingeId=id=>{
-   setId(id)
-  }
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const date =e.target.date.value
+  setCheckOutDate({date});
+};
+
+// const getSingeId=id=>{
+//   setId(id)
+//  }
+ 
   return (
     <div>
       <h2>Total Parking</h2>
@@ -73,7 +74,7 @@ const TotalParking = () => {
                         className="btn  bg-primary max-w-xs text-white"
                         type="submit"
                         value="Submit"
-                        onClick={() => getSingeId(s._id)}
+                        onClick={() => setId(s._id)}
                       />
                     </form>
                   </td>
