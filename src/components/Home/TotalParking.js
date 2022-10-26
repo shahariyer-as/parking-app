@@ -9,7 +9,7 @@ const TotalParking = () => {
   
 
   useEffect(() => {
-    fetch("http://localhost:5000/service")
+    fetch("https://parking-app-server.vercel.app/service")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, [services]);
@@ -17,14 +17,14 @@ const TotalParking = () => {
 // available parking 
 
     useEffect(()=>{
-        fetch('http://localhost:5000/available').then(res=>res.json()).then(data=> setAvailable(data))
+        fetch('https://parking-app-server.vercel.app/available').then(res=>res.json()).then(data=> setAvailable(data))
     },[])
 
 // put check out time 
 useEffect(()=>{
   // console.log(checkOutDate,id)
   if(checkOutDate){
-    fetch(`http://localhost:5000/parking/${id}`,{
+    fetch(`https://parking-app-server.vercel.app/${id}`,{
     method: "PUT",
     headers: {
         "Content-Type": "application/json",

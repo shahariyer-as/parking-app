@@ -18,7 +18,7 @@ const ParkingInput = () => {
   // },[inputInfo,reset])
 
   const onSubmit = (data) => {
-    fetch("http://localhost:5000/parking",{
+    fetch("https://parking-app-server.vercel.app/parking",{
       method:"POST",
       headers: {
         'Content-Type': 'application/json',
